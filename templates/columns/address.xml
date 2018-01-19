@@ -1,0 +1,6 @@
+<pnp:ProvisioningTemplate ID="Simple-Columns-Template" xmlns:pnp="http://schemas.dev.office.com/PnP/2017/05/ProvisioningSchema">
+    <pnp:SiteFields>
+    <Field Type="Note" DisplayName="Address" Name="b6address" ID="{9ba40046-b9e7-41ce-8eb4-69e1dae755ab}" Group="Bright 6 Columns" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" NumLines="6" RichText="FALSE" RichTextMode="FullHtml" IsolateStyles="TRUE" Sortable="FALSE" CustomFormatter="" RestrictedMode="TRUE" AppendOnly="FALSE" UnlimitedLengthInDocumentLibrary="FALSE">
+    </Field>
+    </pnp:SiteFields>
+</pnp:ProvisioningTemplate>
