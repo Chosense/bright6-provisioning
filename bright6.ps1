@@ -60,3 +60,11 @@ $scripts = @{
         "columns/address"
     )
 }
+
+# Requires SharePoint Server 2013 Client Components SDK
+# https://www.microsoft.com/en-us/download/details.aspx?id=35585
+
+Add-Type -Path ".\bin\Microsoft.SharePoint.Client.dll"
+Add-Type -Path ".\bin\Microsoft.SharePoint.Client.Runtime.dll"
+
+$cc = New-Object Microsoft.SharePoint.Client.ClientContext($Url)
