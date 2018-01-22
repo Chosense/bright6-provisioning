@@ -1,4 +1,25 @@
-﻿param(
+﻿<#
+.Synopsis
+Creates single-line text field.
+
+.Parameter InternalName
+Required. The internal name for the field.
+
+.Parameter DisplayName
+Optional. The display name for the field. Defaults to the internal name.
+
+.Parameter Group
+Optional. The group for the field.
+
+.Parameter ID
+Optional. The ID for the field. If not specified, an ID will be generated.
+
+.Parameter MaxLength
+Optional. The maximum length of the field.
+
+#>
+
+param(
     [parameter(Mandatory=$true, ValueFromPipeline=$true)]
     [Microsoft.SharePoint.Client.ClientContext]
     $Context,
@@ -24,21 +45,9 @@
     $MaxLength = 255
 )
 
-Add-Type -Path ".\csom\Microsoft.SharePoint.Client.dll"
-Add-Type -Path ".\csom\Microsoft.SharePoint.Client.Runtime.dll"
-
-[Microsoft.SharePoint.Client.Field]$fld = .\Get-Field.ps1 -Context $Context -FieldName $InternalName
-
 $elem = .\Create-FieldXmlSchema.ps1 -InternalName $InternalName -DisplayName $DisplayName -Group $Group -ID $ID -Type Text
 $elem.SetAttribute("MaxLength", $MaxLength)
 
-if($fld -eq $null) {
-    $fld = .\Create-XmlField.ps1 -Context $Context -Xml $elem.OuterXml
-}
-else {
-    $fld.SchemaXml = $elem.OuterXml
-    $fld.UpdateAndPushChanges($true)
-    $Context.ExecuteQuery()
-}
+$fld = .\Create-XmlField.ps1 -Context $Context -Xml $elem.OuterXml
 
 $fld

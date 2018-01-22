@@ -1,4 +1,14 @@
-﻿[OutputType("Microsoft.SharePoint.Client.Field")]
+﻿<#
+.Synopsis
+Attempts to find a field with the given name and returns it. Returns
+$null if no field is found.
+
+.Parameter Context
+Required. The context to use to find the field with.
+
+.Parameter FieldName
+Required. The internal name or title of the field to return.
+#>
 
 param(
     [parameter(Mandatory=$true, ValueFromPipeline=$true)]
