@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "Chosense.Bright6.Provisioning.TestConsole": {
-      "commandName": "Project",
-      "commandLineArgs": ""
-    }
-  }
-}
