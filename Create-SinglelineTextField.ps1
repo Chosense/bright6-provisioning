@@ -27,34 +27,16 @@
 Add-Type -Path ".\csom\Microsoft.SharePoint.Client.dll"
 Add-Type -Path ".\csom\Microsoft.SharePoint.Client.Runtime.dll"
 
-if($ID -eq $null) {
-    $ID = New-Guid
-}
-
-if([System.String]::IsNullOrEmpty($DisplayName)) {
-    $DisplayName = $InternalName
-}
-
 [Microsoft.SharePoint.Client.Field]$fld = .\Get-Field.ps1 -Context $Context -FieldName $InternalName
 
-if($fld -eq $null) {
-    $xml = New-Object System.Xml.XmlDocument
-    $xml.LoadXml("<Field />")
-    $elem = $xml.DocumentElement
-    $elem.SetAttribute("ID", "{$ID}")
-    $elem.SetAttribute("Name", $InternalName)
-    $elem.SetAttribute("StaticName", $InternalName)
-    $elem.SetAttribute("DisplayName", $DisplayName)
-    $elem.SetAttribute("Group", $Group)
-    $elem.SetAttribute("Type", "Text")
-    $elem.SetAttribute("MaxLength", $MaxLength)
+$elem = .\Create-FieldXmlSchema.ps1 -InternalName $InternalName -DisplayName $DisplayName -Group $Group -ID $ID -Type Text
+$elem.SetAttribute("MaxLength", $MaxLength)
 
+if($fld -eq $null) {
     $fld = .\Create-XmlField.ps1 -Context $Context -Xml $xml.OuterXml
 }
 else {
-    $fld.Group = $Group
-    $fld.Title = $DisplayName
-
+    $fld.SchemaXml = $elem.OuterXml
     $fld.UpdateAndPushChanges($true)
     $Context.ExecuteQuery()
 }
