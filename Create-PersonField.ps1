@@ -32,7 +32,7 @@ $elem.SetAttribute("UserSelectionMode", "PeopleOnly")
 $elem.SetAttribute("UserSelectionScope", "0")
 
 if($fld -eq $null) {
-    $fld = .\Create-XmlField.ps1 -Context $Context -Xml $xml.OuterXml
+    $fld = .\Create-XmlField.ps1 -Context $Context -Xml $elem.OuterXml
 }
 else {
     $fld.SchemaXml = $elem.OuterXml
