@@ -21,11 +21,7 @@
 
     [parameter(Mandatory=$false)]
     [int]
-    $Rows = 6,
-
-    [parameter(Mandatory=$false)]
-    [switch]
-    $IsHtml
+    $MaxLength = 255
 )
 
 Add-Type -Path ".\csom\Microsoft.SharePoint.Client.dll"
@@ -50,13 +46,8 @@ if($fld -eq $null) {
     $elem.SetAttribute("StaticName", $InternalName)
     $elem.SetAttribute("DisplayName", $DisplayName)
     $elem.SetAttribute("Group", $Group)
-    $elem.SetAttribute("Type", "Note")
-    $elem.SetAttribute("NumLines", $Rows)
-
-    if($IsHtml) {
-        $elem.SetAttribute("RichText", "TRUE")
-        $elem.SetAttribute("RichTextMode", "FullHtml")
-    }
+    $elem.SetAttribute("Type", "Text")
+    $elem.SetAttribute("MaxLength", $MaxLength)
 
     $fld = .\Create-XmlField.ps1 -Context $Context -Xml $xml.OuterXml
 }

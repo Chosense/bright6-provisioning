@@ -17,15 +17,7 @@
 
     [parameter(Mandatory=$false)]
     [Guid]
-    $ID,
-
-    [parameter(Mandatory=$false)]
-    [int]
-    $Rows = 6,
-
-    [parameter(Mandatory=$false)]
-    [switch]
-    $IsHtml
+    $ID
 )
 
 Add-Type -Path ".\csom\Microsoft.SharePoint.Client.dll"
@@ -34,6 +26,7 @@ Add-Type -Path ".\csom\Microsoft.SharePoint.Client.Runtime.dll"
 if($ID -eq $null) {
     $ID = New-Guid
 }
+
 
 if([System.String]::IsNullOrEmpty($DisplayName)) {
     $DisplayName = $InternalName
@@ -50,13 +43,12 @@ if($fld -eq $null) {
     $elem.SetAttribute("StaticName", $InternalName)
     $elem.SetAttribute("DisplayName", $DisplayName)
     $elem.SetAttribute("Group", $Group)
-    $elem.SetAttribute("Type", "Note")
-    $elem.SetAttribute("NumLines", $Rows)
+    $elem.SetAttribute("Type", "User")
+    $elem.SetAttribute("List", "UserInfo")
+    $elem.SetAttribute("ShowField", "ImnName")
+    $elem.SetAttribute("UserSelectionMode", "PeopleOnly")
+    $elem.SetAttribute("UserSelectionScope", "0")
 
-    if($IsHtml) {
-        $elem.SetAttribute("RichText", "TRUE")
-        $elem.SetAttribute("RichTextMode", "FullHtml")
-    }
 
     $fld = .\Create-XmlField.ps1 -Context $Context -Xml $xml.OuterXml
 }

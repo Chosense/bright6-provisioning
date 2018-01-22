@@ -12,7 +12,7 @@ param(
 Add-Type -Path ".\csom\Microsoft.SharePoint.Client.dll"
 Add-Type -Path ".\csom\Microsoft.SharePoint.Client.Runtime.dll"
 
-$Context.Web.Fields.AddFieldAsXml($Xml, $false, [Microsoft.SharePoint.Client.AddFieldOptions]::DefaultValue)
+$res = $Context.Web.Fields.AddFieldAsXml($Xml, $false, [Microsoft.SharePoint.Client.AddFieldOptions]::DefaultValue)
 
 $xmlDoc = New-Object System.Xml.XmlDocument
 $xmlDoc.LoadXml($Xml)
