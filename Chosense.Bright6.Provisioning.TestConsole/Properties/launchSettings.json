@@ -2,7 +2,7 @@
   "profiles": {
     "Chosense.Bright6.Provisioning.TestConsole": {
       "commandName": "Project",
-      "commandLineArgs": "https://chosense.sharepoint.com/sites/bright6v2dev1"
+      "commandLineArgs": "https://chosense.sharepoint.com/sites/bright6v2dev1 chosense.sharepoint.com"
     }
   }
 }

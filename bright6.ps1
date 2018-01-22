@@ -50,21 +50,22 @@ you want to provision Bright 6 to.
 
 #>
 param(
-    [parameter(Mandatory=$true)]
+    [parameter(Mandatory=$true, ValueFromPipeline=$true)]
     [string]
-    $Url
+    $Url,
+
+    [parameter(Mandatory=$false)]
+    [string]
+    $UserName,
+
+    [parameter(Mandatory=$false)]
+    [SecureString]
+    $Password
 )
 
-$scripts = @{
-    "content-types/company" = @(
-        "columns/address"
-    )
-}
+Add-Type -Path ".\csom\Microsoft.SharePoint.Client.dll"
+Add-Type -Path ".\csom\Microsoft.SharePoint.Client.Runtime.dll"
 
-# Requires SharePoint Server 2013 Client Components SDK
-# https://www.microsoft.com/en-us/download/details.aspx?id=35585
+$cc = .\Get-Context.ps1 -Url $Url -UserName $UserName -Password $Password
 
-Add-Type -Path ".\bin\Microsoft.SharePoint.Client.dll"
-Add-Type -Path ".\bin\Microsoft.SharePoint.Client.Runtime.dll"
-
-$cc = New-Object Microsoft.SharePoint.Client.ClientContext($Url)
+.\Update-Field.ps1 -Context $cc -TemplateName address
