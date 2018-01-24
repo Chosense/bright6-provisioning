@@ -50,7 +50,6 @@ if([System.String]::IsNullOrEmpty($DisplayName)) {
     $DisplayName = $InternalName
 }
 
-
 $xml = New-Object System.Xml.XmlDocument
 $xml.LoadXml("<Field />")
 $elem = $xml.DocumentElement

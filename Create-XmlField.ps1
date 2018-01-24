@@ -1,7 +1,7 @@
 ﻿
 <#
 .Synopsis
-Creates a new field from the given XML.
+Creates a new or updates an existing field from the given XML.
 
 .Parameter Context
 Required. The context that points to the site to create the field in.
@@ -40,4 +40,5 @@ else {
 }
 
 $fld = .\Get-Field.ps1 -Context $Context -FieldName $name
+
 $fld
